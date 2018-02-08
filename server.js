@@ -9,13 +9,14 @@ var port = process.env.API_PORT || 3001;
 mongoose.connect('mongodb://alisoncheng:password@ds141514.mlab.com:41514/mern');
 app.use(bodyParser.urlencoded({extended: true}));
 
-// app.use(function(req, res, next) {
-//  res.setHeader('Access-Control-Allow-Origin', '*');
-//  res.setHeader('Access-Control-Allow-Credentials', 'true');
-//  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-//  res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-//  res.setHeader('Cache-Control', 'no-cache');
-// });
+app.use(function(req, res, next) {
+ res.setHeader('Access-Control-Allow-Origin', '*');
+ res.setHeader('Access-Control-Allow-Credentials', 'true');
+ res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+ res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+ res.setHeader('Cache-Control', 'no-cache');
+ next();
+});
 
 router.get('/', function(req, res){
   res.json({
@@ -31,7 +32,7 @@ router.get('/', function(req, res){
     var comment = new Comment();
     comment.author = req.body.author;
     comment.text = req.body.text;
-
+    console.log(comment);
     comment.save(function(err) {
       if (err)
         res.send(err);
@@ -41,7 +42,6 @@ router.get('/', function(req, res){
     });
   });
 });
-
 
 app.use('/api', router);
 
