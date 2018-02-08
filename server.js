@@ -1,7 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
+var Comment = require('./model/comments');
 
 var app = express();
 var router = express.Router();
