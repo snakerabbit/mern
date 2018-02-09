@@ -22,21 +22,20 @@ router.get('/', function(req, res){
   res.json({
     message: 'API Initialized!'
   });
-  router.route('/comments').get(function(req, res) {
+  router.route('/comments').get(function(req1, res1) {
     Comment.find(function(err, comments){
       if(err)
-        res.send(err);
-        res.json(comments);
+        res1.send(err);
+        res1.json(comments);
     });
-  }).post(function(req, res) {
+  }).post(function(req2, res2) {
     var comment = new Comment();
-    comment.author = req.body.author;
-    comment.text = req.body.text;
-    console.log(comment);
+    comment.author = req2.body.author;
+    comment.text = req2.body.text;
     comment.save(function(err) {
       if (err)
-        res.send(err);
-        res.json({
+        {res2.send(err);}
+        res2.json({
           message: 'Comment successfully added!'
         });
     });
