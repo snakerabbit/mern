@@ -7,8 +7,8 @@ var app = express();
 var router = express.Router();
 var port = process.env.API_PORT || 3001;
 mongoose.connect('mongodb://alisoncheng:password@ds141514.mlab.com:41514/mern');
-app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(function(req, res, next) {
  res.setHeader('Access-Control-Allow-Origin', '*');
  res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -18,32 +18,32 @@ app.use(function(req, res, next) {
  next();
 });
 
+
+app.listen(port, function(){
+  console.log(`api running on port ${port}`);
+});
+app.use('/api', router);
 router.get('/', function(req, res){
   res.json({
     message: 'API Initialized!'
   });
-  router.route('/comments').get(function(req1, res1) {
+  router.route('/comments').get(function(req, res) {
     Comment.find(function(err, comments){
       if(err)
-        res1.send(err);
-        res1.json(comments);
+        res.send(err);
+        res.json(comments);
     });
-  }).post(function(req2, res2) {
-    var comment = new Comment();
-    comment.author = req2.body.author;
-    comment.text = req2.body.text;
+  }).post(function(req, res) {
+    var comment = new Comment({
+      author: req.body.author,
+      text: req.body.text
+    });
     comment.save(function(err) {
       if (err)
-        {res2.send(err);}
-        res2.json({
-          message: 'Comment successfully added!'
+        res.send(err);
+        res.json({
+          message: `Comment successfully added! ${req.body.author}`
         });
     });
   });
-});
-
-app.use('/api', router);
-
-app.listen(port, function(){
-  console.log(`api running on port ${port}`);
 });
