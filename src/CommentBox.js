@@ -32,7 +32,7 @@ class CommentBox extends React.Component {
    <div>
    <h2>Comments:</h2>
    <CommentList data={this.state.data}/>
-   <CommentForm/>
+   <CommentForm onCommentSubmit = {this.handleCommentSubmit}/>
    </div>
     );
  }
