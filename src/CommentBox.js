@@ -43,6 +43,16 @@ class CommentBox extends React.Component {
     });
   }
 
+  handleCommentDelete(id) {
+    axios.delete(`${this.props.url}/${id}`)
+    .then(res =>{
+      console.log('Comment Deleted');
+    })
+    .catch(err =>{
+      console.log(err);
+    });
+  }
+
 
  componentDidMount(){
    this.loadCommentsFromServer();
@@ -53,7 +63,10 @@ class CommentBox extends React.Component {
    return (
    <div>
    <h2>Comments:</h2>
-   <CommentList data={this.state.data}/>
+   <CommentList
+    onCommentDelete={this.handleCommentDelete}
+    onCommentUpdate={this.handleCommentUpdate}
+    data={ this.state.data }/>
    <CommentForm onCommentSubmit = {this.handleCommentSubmit}/>
    </div>
     );
