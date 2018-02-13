@@ -9,10 +9,12 @@ class Comment extends React.Component {
       author: '',
       text: ''
     };
+    console.log(this.props);
     this.deleteComment = this.deleteComment.bind(this);
     this.updateComment = this.updateComment.bind(this);
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
   }
 
   updateComment(e){
