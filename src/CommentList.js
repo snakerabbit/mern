@@ -7,6 +7,7 @@ class CommentList extends React.Component {
      return (
        <Comment author={ comment.author }
          key={ comment['_id'] }
+         uniqueID = {comment['_id']}
          onCommentDelete={this.props.onCommentDelete}
          onCommentUpdate={this.props.onCommentUpdate}>
        { comment.text}
