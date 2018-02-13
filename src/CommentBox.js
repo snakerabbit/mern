@@ -10,6 +10,8 @@ class CommentBox extends React.Component {
    this.state = { data: [] };
    this.loadCommentsFromServer = this.loadCommentsFromServer.bind(this);
    this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+   this.handleCommentUpdate = this.handleCommmentUpdate.bind(this);
+   this.handleCommentDelete = this.handleCommentDelete.bind(this);
  }
 
  loadCommentsFromServer(){
@@ -31,6 +33,13 @@ class CommentBox extends React.Component {
       this.setState({
         data: comments
       });
+    });
+  }
+
+  handleCommentUpdate(id, comment) {
+    axios.put(`${this.props.url}/${id}`, comment)
+    .catch(err => {
+      console.log(err);
     });
   }
 
