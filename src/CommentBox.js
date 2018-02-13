@@ -19,7 +19,15 @@ class CommentBox extends React.Component {
  }
 
  handleCommentSubmit(){
-
+   axios.post(this.props.url, comment)
+    .then(res =>{
+      this.setState({
+        data: res
+      })
+    .catch(err =>{
+      console.log(err);
+    });
+  });
  }
 
  componentDidMount(){
